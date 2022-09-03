@@ -9,4 +9,3 @@ usersRouters.get ("/users/:userId", express.json(), userId);
 usersRouters.post ("/users", express.json(), userCreate);
 
 module.exports = { usersRouters };
-

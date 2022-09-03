@@ -19,7 +19,7 @@ async function main() {
   });
 
   await app.listen(PORT);
-  // console.log(`Сервер запущен на ${PORT} порту`);
+  console.log(`Сервер запущен на ${PORT} порту`);
 };
 
 main();
