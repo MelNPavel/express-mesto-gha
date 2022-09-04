@@ -8,6 +8,14 @@ const app = express();
 
 app.use(express.json());
 
+app.use((req, res, next) => {
+  req.user = {
+    _id: '63134b4a561e67c4d0f78891'
+  };
+
+  next();
+});
+
 app.use(usersRouters);
 
 app.use(cardsRouters);

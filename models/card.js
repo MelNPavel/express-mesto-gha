@@ -20,7 +20,7 @@ const cardSchema = new mongoose.Schema({
   likes: [{
     type: String,
   }],
-  createdAt:{
+  createdAt: {
     type: Date,
 
   }
