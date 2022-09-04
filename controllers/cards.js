@@ -46,7 +46,7 @@ const likeCard = async (req, res) => {
       const { cardId } = req.params;
       const like = await Card.findByIdAndUpdate(
         cardId,
-        { $addToSet: { likes: req.user._id } }, // добавить _id в массив, если его там нет
+        { $addToSet: { likes: req.user._id } },
         { new: true }
       )
       res.status(200).send(like);
@@ -64,7 +64,7 @@ const dislikeCard = async (req, res) => {
       const { cardId } = req.params;
       const disLike = await Card.findByIdAndUpdate(
           cardId,
-          { $pull: { likes: req.user._id } }, // убрать _id из массива
+          { $pull: { likes: req.user._id } },
           { new: true },
       )
       res.status(200).send(disLike);

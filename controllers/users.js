@@ -18,7 +18,7 @@ const userId = async(req, res) => {
         const { userId } = req.params;
         const user = await User.findById( userId );
         if (!user){
-            return res.status(NOT_FOUND).send({message: "Такого пользователя нет"})};
+            return res.status(NOT_FOUND).send({message: "Пользователь по указанному _id не найден."})};
         return res.status(200).send(user)
     }catch(e) {
         if (e.name === 'ReferenceError'){
@@ -33,7 +33,7 @@ const userCreate = async(req, res) => {
         res.status(200).send(user);
     }catch(e) {
         if (e.name === 'ValidationError'){
-            return res.status(BAD_REQUEST).send({message: "Ошибка в запросе"})};
+            return res.status(BAD_REQUEST).send({message: "Переданы некорректные данные при создании пользователя."})};
         res.status(INTERNAL_SERVER_ERROR).send({message: "Произошла ошибка на сервере"});
     }
 };
