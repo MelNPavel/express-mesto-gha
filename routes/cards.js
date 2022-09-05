@@ -8,7 +8,3 @@ cardsRouters.delete ("/cards/:_id", express.json(), deleteCard);
 cardsRouters.put ("/cards/:cardId/likes", express.json(),  likeCard)
 cardsRouters.delete ("/cards/:cardId/likes", express.json(), dislikeCard)
 module.exports = { cardsRouters };
-
-
-// PUT /cards/:cardId/likes — поставить лайк карточке
-// DELETE /cards/:cardId/likes — убрать лайк с карточки

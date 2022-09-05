@@ -13,6 +13,3 @@ usersRouters.patch ("/users/me", express.json(), userUpdate);
 usersRouters.patch ("/users/me/avatar", express.json(), avatarUpdate);
 
 module.exports = { usersRouters };
-
-// PATCH /users/me — обновляет профиль
-// PATCH /users/me/avatar — обновляет аватар
