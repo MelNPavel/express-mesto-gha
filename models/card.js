@@ -22,7 +22,7 @@ const cardSchema = new mongoose.Schema({
   }],
   createdAt: {
     type: Date,
-  }
+  },
 });
 
 module.exports = mongoose.model('Card', cardSchema);
