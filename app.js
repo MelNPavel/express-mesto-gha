@@ -8,7 +8,6 @@ const app = express();
 const { usersRouters } = require('./routes/users');
 const { cardsRouters } = require('./routes/cards');
 
-const INTERNAL_SERVER_ERROR = 500;
 const NOT_FOUND = 404;
 
 app.use(express.json());
@@ -27,7 +26,7 @@ app.use('*', (req, res) => {
   res.status(NOT_FOUND).send({ message: 'Такой страницы нет' });
 });
 
-async function main(req, res) {
+async function main() {
   try {
     await mongoose.connect('mongodb://localhost:27017/mestodb', {
       useNewUrlParser: true,
@@ -37,7 +36,7 @@ async function main(req, res) {
     await app.listen(PORT);
     console.log(`Сервер запущен на ${PORT} порту`);
   } catch (e) {
-    res.status(INTERNAL_SERVER_ERROR).send({ message: 'Произошла ошибка на сервере' });
+    console.log('Произошла ошибка на сервере');
   }
 }
 
