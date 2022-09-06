@@ -9,7 +9,7 @@ const getUsers = async (req, res) => {
     const users = await User.find({});
     return res.status(200).send(users);
   } catch (e) {
-    return res.status(400).send({ message: 'Ошибка в запросе' });
+    return res.status(INTERNAL_SERVER_ERROR).send({ message: 'Ошибка в запросе' });
   }
 };
 
@@ -22,7 +22,7 @@ const userFindId = async (req, res) => {
     }
     return res.status(200).send(user);
   } catch (e) {
-    if (e.name === 'ReferenceError') {
+    if (e.name === 'CastError') {
       return res.status(BAD_REQUEST).send({ message: 'Ошибка в запросе' });
     }
     return res.status(INTERNAL_SERVER_ERROR).send({ message: 'Произошла ошибка на сервере' });
@@ -44,7 +44,11 @@ const userCreate = async (req, res) => {
 const userUpdate = async (req, res) => {
   try {
     const { name, about } = req.body;
-    const user = await User.findByIdAndUpdate(req.user._id, { name, about });
+    const user = await User.findByIdAndUpdate(
+      req.user._id,
+      { name, about },
+      { new: true, runValidators: true },
+    );
     if (!user) {
       return res.status(NOT_FOUND).send({ message: 'Такого пользователя нет' });
     }
@@ -60,7 +64,11 @@ const userUpdate = async (req, res) => {
 const avatarUpdate = async (req, res) => {
   try {
     const { avatar } = req.body.avatar;
-    const user = await User.findByIdAndUpdate(req.user._id, avatar);
+    const user = await User.findByIdAndUpdate(
+      req.user._id,
+      avatar,
+      { new: true, runValidators: true },
+    );
     return res.status(200).send(user);
   } catch (e) {
     if (e.name === 'ValidationError') {
