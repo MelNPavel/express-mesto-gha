@@ -136,7 +136,7 @@ const login = async (req, res, next) => {
       httpOnly: true,
       sameSite: true,
     });
-    return res.status(200).send(checkUser.toJSON());
+    return res.send(checkUser.toJSON());
   } catch (e) {
     return next(new BadRequest('Ошибка в запросе'));
   }
