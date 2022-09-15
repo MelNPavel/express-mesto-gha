@@ -8,6 +8,7 @@ const BadRequest = require('../errors/BadRequest');
 const NotFoudError = require('../errors/NotFoudError');
 const InternalServerError = require('../errors/InternalServerError');
 const UnauthorizedError = require('../errors/UnauthorizedError');
+const ConflictError = require('../errors/ConflictError');
 
 const getUsers = async (req, res) => {
   try {
@@ -60,20 +61,20 @@ const userCreate = async (req, res, next) => {
   } = req.body;
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
-    const user = await new User({
+    const user = await User.create({
       email,
       name,
       about,
       avatar,
       password: hashedPassword,
-    }).save();
+    });
     return (res.status(200).send(user));
   } catch (e) {
     if (e.name === 'ValidationError') {
       return next(new BadRequest('Ошибка в запросе'));
     }
     if (e.code === 11000) {
-      return next(new BadRequest('Пользователь с такими данными уже существует'));
+      return next(new ConflictError('Пользователь с такими данными уже существует'));
     }
   }
   return next(new InternalServerError('Произошла ошибка на сервере'));
@@ -101,10 +102,10 @@ const userUpdate = async (req, res, next) => {
 
 const avatarUpdate = async (req, res, next) => {
   try {
-    const { avatar } = req.body.avatar;
+    const { avatar } = req.body;
     const user = await User.findByIdAndUpdate(
       req.user._id,
-      avatar,
+      { avatar },
       { new: true, runValidators: true },
     );
     return res.status(200).send(user);
@@ -137,7 +138,7 @@ const login = async (req, res, next) => {
     });
     return res.status(200).send(checkUser.toJSON());
   } catch (e) {
-    return next(new UnauthorizedError('Неправильный email или пароль'));
+    return next(new BadRequest('Ошибка в запросе'));
   }
 };
 

@@ -3,6 +3,7 @@ const Card = require('../models/card');
 const BadRequest = require('../errors/BadRequest');
 const NotFoudError = require('../errors/NotFoudError');
 const InternalServerError = require('../errors/InternalServerError');
+const ForbiddenError = require('../errors/ForbiddenError');
 
 const getCard = async (req, res, next) => {
   try {
@@ -33,7 +34,7 @@ const deleteCard = async (req, res, next) => {
   try {
     const card = await Card.findById(_id);
     if (userId !== card.owner.toString()) {
-      return next(new NotFoudError('Карточка не принадлежит данному пользователю'));
+      return next(new ForbiddenError('Карточка не принадлежит данному пользователю'));
     }
     const cards = await Card.findByIdAndDelete(_id);
     if (!cards) {
