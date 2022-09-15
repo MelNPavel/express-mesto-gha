@@ -130,7 +130,7 @@ const login = async (req, res, next) => {
     }
     const token = jwt.sign({
       _id: checkUser.id,
-    }, process.env['JWT.SECRET']);
+    }, 'SECRET');
     res.cookie('jwt', token, {
       maxAge: 3600000,
       httpOnly: true,
@@ -141,6 +141,8 @@ const login = async (req, res, next) => {
     return next(new BadRequest('Ошибка в запросе'));
   }
 };
+
+// process.env['JWT.SECRET'])
 
 module.exports = {
   getUsers,
