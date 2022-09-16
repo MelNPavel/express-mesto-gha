@@ -11,13 +11,22 @@ const {
 } = require('../controllers/cards');
 
 cardsRouters.get('/cards', express.json(), getCard);
-cardsRouters.post('/cards', express.json(), createCard);
+cardsRouters.post('/cards', celebrate({
+  body: Joi.object().keys({
+    name: Joi.string().min(2).max(30),
+    link: Joi.string().min(2).max(30),
+  }),
+}), createCard);
 cardsRouters.delete('/cards/:_id', celebrate({
   body: Joi.object().keys({
     _id: Joi.string(),
   }),
 }), deleteCard);
-cardsRouters.put('/cards/:cardId/likes', express.json(), likeCard);
+cardsRouters.put('/cards/:cardId/likes', celebrate({
+  body: Joi.object().keys({
+    cardId: Joi.string(),
+  }),
+}), likeCard);
 cardsRouters.delete('/cards/:cardId/likes', celebrate({
   body: Joi.object().keys({
     cardId: Joi.string(),
