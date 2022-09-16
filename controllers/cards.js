@@ -33,6 +33,9 @@ const deleteCard = async (req, res, next) => {
   const { _id } = req.params;
   try {
     const card = await Card.findById(_id);
+    if (!card) {
+      return next(new NotFoudError('Такой картоки нет'));
+    }
     if (userId !== card.owner.toString()) {
       return next(new ForbiddenError('Карточка не принадлежит данному пользователю'));
     }
