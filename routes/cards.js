@@ -19,7 +19,7 @@ cardsRouters.post('/cards', celebrate({
 }), createCard);
 cardsRouters.delete('/cards/:_id', celebrate({
   body: Joi.object().keys({
-    _id: Joi.string(),
+    _id: Joi.string().alphanum().length(24),
   }),
 }), deleteCard);
 cardsRouters.put('/cards/:cardId/likes', celebrate({
