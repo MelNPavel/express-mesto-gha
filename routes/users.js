@@ -13,7 +13,11 @@ const {
 
 usersRouters.get('/users', express.json(), getUsers);
 usersRouters.get('/users/me', express.json(), getUserMe);
-usersRouters.get('/users/:userId', express.json(), userFindId);
+usersRouters.get('/users/:userId', celebrate({
+  body: Joi.object().keys({
+    userId: Joi.string(),
+  }),
+}), userFindId);
 
 usersRouters.patch('/users/me', celebrate({
   body: Joi.object().keys({
