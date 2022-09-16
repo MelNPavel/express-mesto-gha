@@ -58,7 +58,7 @@ const likeCard = async (req, res, next) => {
       { new: true },
     );
     if (!like) {
-      return next(NotFoudError('Такой картоки нет'));
+      return next(new NotFoudError('Такой картоки нет'));
     }
     return res.status(200).send(like);
   } catch (e) {
