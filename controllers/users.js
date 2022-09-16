@@ -40,7 +40,7 @@ const userFindId = async (req, res, next) => {
     const { userId } = req.params;
     const user = await User.findById(userId);
     if (!user) {
-      return next(res.status(new NotFoudError('Пользователь по указанному _id не найден.')));
+      return next(new NotFoudError('Пользователь по указанному _id не найден.'));
     }
     return res.status(200).send(user);
   } catch (e) {
