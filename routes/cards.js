@@ -13,8 +13,8 @@ const {
 cardsRouters.get('/cards', express.json(), getCard);
 cardsRouters.post('/cards', celebrate({
   body: Joi.object().keys({
-    name: Joi.string().min(2).max(30),
-    link: Joi.string().min(2).max(30),
+    name: Joi.string().required().min(2).max(30),
+    link: Joi.string().required().min(2).max(30),
   }),
 }), createCard);
 cardsRouters.delete('/cards/:_id', celebrate({
