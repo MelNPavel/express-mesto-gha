@@ -12,7 +12,11 @@ const {
 
 cardsRouters.get('/cards', express.json(), getCard);
 cardsRouters.post('/cards', express.json(), createCard);
-cardsRouters.delete('/cards/:_id', express.json(), deleteCard);
+cardsRouters.delete('/cards/:_id', celebrate({
+  body: Joi.object().keys({
+    _id: Joi.string(),
+  }),
+}), deleteCard);
 cardsRouters.put('/cards/:cardId/likes', express.json(), likeCard);
 cardsRouters.delete('/cards/:cardId/likes', celebrate({
   body: Joi.object().keys({
