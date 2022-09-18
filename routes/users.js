@@ -21,8 +21,8 @@ usersRouters.get('/users/:userId', celebrate({
 
 usersRouters.patch('/users/me', celebrate({
   body: Joi.object().keys({
-    name: Joi.string().min(2).max(30).default('Жак-Ив Кусто'),
-    about: Joi.string().min(2).max(30).default('Исследователь'),
+    name: Joi.string().min(2).max(30),
+    about: Joi.string().min(2).max(30),
   }),
 }), userUpdate);
 
