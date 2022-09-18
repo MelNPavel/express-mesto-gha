@@ -11,8 +11,8 @@ const {
   getUserMe,
 } = require('../controllers/users');
 
-usersRouters.get('/users', express.json(), getUsers);
-usersRouters.get('/users/me', express.json(), getUserMe);
+usersRouters.get('/users', getUsers);
+usersRouters.get('/users/me', getUserMe);
 
 usersRouters.get('/users/:userId', celebrate({
   body: Joi.object().keys({
