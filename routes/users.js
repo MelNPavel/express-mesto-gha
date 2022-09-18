@@ -13,6 +13,7 @@ const {
 
 usersRouters.get('/users', express.json(), getUsers);
 usersRouters.get('/users/me', express.json(), getUserMe);
+
 usersRouters.get('/users/:userId', celebrate({
   body: Joi.object().keys({
     userId: Joi.string().alphanum().length(24),
