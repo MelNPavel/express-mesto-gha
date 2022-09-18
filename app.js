@@ -38,8 +38,6 @@ app.post('/signup', celebrate({
   }),
 }), userCreate);
 
-app.use(errors());
-
 app.use(auth);
 
 app.use(usersRouters);
@@ -49,6 +47,8 @@ app.use(cardsRouters);
 app.use('*', (req, res) => {
   res.status(new NotFoudError('Такой страницы нет'));
 });
+
+app.use(errors());
 
 app.use((err, req, res, next) => {
   const { status = 500, message } = err;
