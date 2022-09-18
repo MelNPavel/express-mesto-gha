@@ -10,7 +10,7 @@ const {
   dislikeCard,
 } = require('../controllers/cards');
 
-cardsRouters.get('/cards', express.json(), getCard);
+cardsRouters.get('/cards', getCard);
 cardsRouters.post('/cards', celebrate({
   body: Joi.object().keys({
     name: Joi.string().required().min(2).max(30),
