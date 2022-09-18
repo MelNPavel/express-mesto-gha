@@ -38,4 +38,5 @@ cardsRouters.delete('/cards/:cardId/likes', celebrate({
     cardId: Joi.string().alphanum().length(24),
   }),
 }), dislikeCard);
+
 module.exports = { cardsRouters };

@@ -29,9 +29,15 @@ const createCard = async (req, res, next) => {
 };
 
 const deleteCard = async (req, res, next) => {
-  const userId = req.user._id;
-  const { _id } = req.params;
   try {
+    const userId = req.user._id;
+    if (!userId) {
+      return next(new NotFoudError('Такого пользователя нет'));
+    }
+    const { _id } = req.params;
+    if (!_id) {
+      return next(new NotFoudError('Такого пользователя нет'));
+    }
     const card = await Card.findById(_id);
     if (!card) {
       return next(new NotFoudError('Такой картоки нет'));
