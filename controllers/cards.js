@@ -15,9 +15,9 @@ const getCard = async (req, res, next) => {
 };
 
 const createCard = async (req, res, next) => {
+  const { name, link } = req.body;
+  const owner = req.user._id;
   try {
-    const { name, link } = req.body;
-    const owner = req.user._id;
     const cards = await new Card({ name, link, owner }).save();
     return res.status(200).send(cards);
   } catch (e) {
@@ -29,15 +29,9 @@ const createCard = async (req, res, next) => {
 };
 
 const deleteCard = async (req, res, next) => {
+  const userId = req.user._id;
+  const { _id } = req.params;
   try {
-    const userId = req.user._id;
-    if (!userId) {
-      return next(new NotFoudError('Такого пользователя нет'));
-    }
-    const { _id } = req.params;
-    if (!_id) {
-      return next(new NotFoudError('Такого пользователя нет'));
-    }
     const card = await Card.findById(_id);
     if (!card) {
       return next(new NotFoudError('Такой картоки нет'));
@@ -59,8 +53,8 @@ const deleteCard = async (req, res, next) => {
 };
 
 const likeCard = async (req, res, next) => {
+  const { cardId } = req.params;
   try {
-    const { cardId } = req.params;
     const like = await Card.findByIdAndUpdate(
       cardId,
       { $addToSet: { likes: req.user._id } },
@@ -79,8 +73,8 @@ const likeCard = async (req, res, next) => {
 };
 
 const dislikeCard = async (req, res, next) => {
+  const { cardId } = req.params;
   try {
-    const { cardId } = req.params;
     const disLike = await Card.findByIdAndUpdate(
       cardId,
       { $pull: { likes: req.user._id } },
