@@ -96,8 +96,8 @@ const userUpdate = async (req, res, next) => {
     if (e.name === 'ValidationError') {
       return next(new BadRequest('Ошибка в запросе'));
     }
-    return next(new InternalServerError('Произошла ошибка на сервере'));
   }
+  return next(new InternalServerError('Произошла ошибка на сервере'));
 };
 
 const avatarUpdate = async (req, res, next) => {
