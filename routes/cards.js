@@ -14,7 +14,13 @@ cardsRouters.get('/cards', express.json(), getCard);
 cardsRouters.post('/cards', celebrate({
   body: Joi.object().keys({
     name: Joi.string().required().min(2).max(30),
-    link: Joi.string().required().min(2).max(30),
+    link: Joi
+      .string()
+      .required()
+      .min(2)
+      .max(30)
+      // eslint-disable-next-line no-useless-escape
+      .regex(/((?:(?:http?)[s]*:\/\/)?[a-z0-9-%\/\&=?\.]+\.[a-z]{2,4}\/?([^\s<>\#%"\,\{\}\\|\\\^\[\]`]+)?)/),
   }),
 }), createCard);
 cardsRouters.delete('/cards/:_id', celebrate({
@@ -24,12 +30,12 @@ cardsRouters.delete('/cards/:_id', celebrate({
 }), deleteCard);
 cardsRouters.put('/cards/:cardId/likes', celebrate({
   body: Joi.object().keys({
-    cardId: Joi.string(),
+    cardId: Joi.string().alphanum().length(24),
   }),
 }), likeCard);
 cardsRouters.delete('/cards/:cardId/likes', celebrate({
   body: Joi.object().keys({
-    cardId: Joi.string(),
+    cardId: Joi.string().alphanum().length(24),
   }),
 }), dislikeCard);
 module.exports = { cardsRouters };
