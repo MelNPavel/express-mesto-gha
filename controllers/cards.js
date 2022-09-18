@@ -19,6 +19,9 @@ const createCard = async (req, res, next) => {
   const owner = req.user._id;
   try {
     const cards = await new Card({ name, link, owner }).save();
+    if (!cards) {
+      return next(new NotFoudError('Такой картоки нет'));
+    }
     return res.status(200).send(cards);
   } catch (e) {
     if (e.name === 'ValidationError') {
