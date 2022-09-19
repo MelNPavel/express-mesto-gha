@@ -44,8 +44,8 @@ app.use(usersRouters);
 
 app.use(cardsRouters);
 
-app.use('*', (req, res) => {
-  res.status(new NotFoudError('Такой страницы нет'));
+app.use('*', (req, res, next) => {
+  next(new NotFoudError('Такой страницы нет'));
 });
 
 app.use(errors());
