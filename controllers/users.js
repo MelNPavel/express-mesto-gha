@@ -138,7 +138,7 @@ const login = async (req, res, next) => {
     });
     return res.status(200).send(checkUser.toJSON());
   } catch (e) {
-    return next(new BadRequest('Ошибка в запросе'));
+    return next(e);
   }
 };
 

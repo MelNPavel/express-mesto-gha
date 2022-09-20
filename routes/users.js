@@ -15,7 +15,7 @@ usersRouters.get('/users', getUsers);
 usersRouters.get('/users/me', getUserMe);
 
 usersRouters.get('/users/:userId', celebrate({
-  body: Joi.object().keys({
+  params: Joi.object().keys({
     userId: Joi.string().length(24).hex().required(),
   }),
 }), userFindId);
@@ -31,7 +31,6 @@ usersRouters.patch('/users/me/avatar', celebrate({
   body: Joi.object().keys({
     avatar: Joi
       .string()
-      .default('https://pictures.s3.yandex.net/resources/jacques-cousteau_1604399756.png')
       // eslint-disable-next-line no-useless-escape
       .regex(/((?:(?:http?)[s]*:\/\/)?[a-z0-9-%\/\&=?\.]+\.[a-z]{2,4}\/?([^\s<>\#%"\,\{\}\\|\\\^\[\]`]+)?)/),
   }),

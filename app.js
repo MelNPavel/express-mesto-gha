@@ -44,11 +44,11 @@ app.use(usersRouters);
 
 app.use(cardsRouters);
 
-app.use(errors());
-
 app.use('*', (req, res, next) => {
   next(new NotFoudError('Такой страницы нет'));
 });
+
+app.use(errors());
 
 app.use((err, req, res, next) => {
   const { status = 500, message } = err;
