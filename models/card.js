@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const validator = require('validator');
+// const validator = require('validator');
 
 const cardSchema = new mongoose.Schema({
   name: {
@@ -12,8 +12,13 @@ const cardSchema = new mongoose.Schema({
     type: String,
     required: true,
     validate: {
-      validator: validator.isUrl,
-      message: 'Ошибка в link',
+      // eslint-disable-next-line func-names, object-shorthand
+      validator: function (v) {
+        // eslint-disable-next-line no-useless-escape
+        return /(?:(?:http?)[s]*:\/\/)?[a-z0-9-%\/\&=?\.]+\.[a-z]{2,4}\/?([^\s<>\#%"\,\{\}\\|\\\^\[\]`]+)?/.test(v);
+      // eslint-disable-next-line indent
+     },
+      message: 'Ошибка в ссылке',
     },
   },
   owner: {
