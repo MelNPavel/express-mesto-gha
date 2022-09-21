@@ -5,7 +5,7 @@ require('dotenv').config();
 const cookieParser = require('cookie-parser');
 const { errors, celebrate, Joi } = require('celebrate');
 
-const { PORT = 3000 } = process.env;
+const { PORT = 4000 } = process.env;
 const app = express();
 const auth = require('./midlewares/auth');
 
@@ -70,8 +70,10 @@ async function main() {
     });
 
     await app.listen(PORT);
+    // eslint-disable-next-line no-console
     console.log(`Сервер запущен на ${PORT} порту`);
   } catch (e) {
+    // eslint-disable-next-line no-console
     console.log('Произошла ошибка на сервере');
   }
 }
